@@ -5,7 +5,7 @@
   "main": "assets/js/undupe.js",
   "scripts": {
     "start:firefox": "web-ext run --source-dir ./",
-    "build": "web-ext build --source-dir ./"
+    "build": "web-ext build --overwrite-dest --source-dir ./"
   },
   "author": "Navya Bansal",
   "license": "GPL-3.0",
