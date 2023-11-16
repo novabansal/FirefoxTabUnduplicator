@@ -13,18 +13,16 @@ browser.browserAction.onClicked.addListener(async (event) => {
 
     for(const tab of tabs) {
         if(encounteredTabUrls.includes(tab.url)) {
-            removeTabIds.push(tab)// should be tab.id
+            removeTabIds.push(tab.id)
         } else {
             encounteredTabUrls.push(tab.url)
         }
     }
 
-    console.log("https://mail.google.com/mail/u/2/#inbox" === "https://mail.google.com/mail/u/1/#inbox");
-
     console.log(encounteredTabUrls)
     console.log(removeTabIds)
 
-    // let removed = await browser.tabs.remove(removeTabIds);
-    // console.log(removed)
+    let removed = await browser.tabs.remove(removeTabIds);
+    console.log(removed)
 
 })
