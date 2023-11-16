@@ -4,7 +4,8 @@
   "description": "Deletes duplicate tabs in Firefox.",
   "main": "assets/js/undupe.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:firefox": "web-ext run --source-dir ./",
+    "build": "web-ext build --source-dir ./"
   },
   "author": "Navya Bansal",
   "license": "GPL-3.0",

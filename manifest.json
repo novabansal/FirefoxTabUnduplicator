@@ -2,7 +2,7 @@
 
   "manifest_version": 2,
   "name": "Tab Un-duplicator",
-  "version": "1.0",
+  "version": "2.0",
 
   "description": "Deletes duplicate tabs in Firefox.",
 
@@ -18,20 +18,11 @@
 
   "permissions": [
     "<all_urls>",
-    "tabs",
-    "storage"
+    "tabs"
   ],
 
   "background": {
     "scripts": ["assets/js/undupe.js"]
-  },
-
-
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "unduplicator@navya.com",
-      "strict_min_version": "42.0"
-    }
-  }  
+  } 
 
 }
