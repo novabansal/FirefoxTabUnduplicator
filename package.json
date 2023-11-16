@@ -1,0 +1,14 @@
+{
+  "name": "tabdupe",
+  "version": "1.0.0",
+  "description": "Deletes duplicate tabs in Firefox.",
+  "main": "assets/js/undupe.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Navya Bansal",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "web-ext": "^7.8.0"
+  }
+}
