@@ -18,11 +18,20 @@
 
   "permissions": [
     "<all_urls>",
-    "tabs"
+    "tabs",
+    "notifications"
   ],
 
   "background": {
     "scripts": ["assets/js/undupe.js"]
-  } 
+  },
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "navya@test.site",
+      "strict_min_version": "42.0"
+    }
+  }
+  
 
 }
