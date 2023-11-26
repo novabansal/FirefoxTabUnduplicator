@@ -1,30 +1,32 @@
-function handleSuccess(removeTabIds) {
+console.log(browser.runtime.getURL("assets/images/icon128.png"));
+
+async function handleSuccess(removeTabIds) {
     console.log("success")
-    browser.notifications.create("removed-success-notif", {
-        type: "basic",
-        //iconUrl: browser.runtime.getURL("assets/images/icon128.png"),
-        title: "Tab Un-duplicator",
-        message: `${removeTabIds.length} tab${removeTabIds.length > 1 ? "s" : ""} removed.`
+    let notif = await browser.notifications.create({
+        "type": "basic",
+        "iconUrl": browser.runtime.getURL("assets/images/icon128.png"),
+        "title": "Tab Un-duplicator",
+        "message": `${removeTabIds.length} tab${removeTabIds.length > 1 ? "s" : ""} removed.`,
     })
 }
 
-function handleFailure(removeTabIds) {
+async function handleFailure(removeTabIds) {
     console.log("failure")
-    browser.notifications.create("removed-failure-notif", {
-        type: "basic",
-        //iconUrl: browser.runtime.getURL("assets/images/icon128.png"),
-        title: "Tab Un-duplicator",
-        message: `Failed to remove tabs.`
+    let notif = await browser.notifications.create({
+        "type": "basic",
+        "iconUrl": browser.runtime.getURL("assets/images/icon128.png"),
+        "title": "Tab Un-duplicator",
+        "message": `Failed to remove tabs.`,
     })
 }
 
-function handleNoTabs(removeTabIds) {
+async function handleNoTabs(removeTabIds) {
     console.log("no tabs")
-    browser.notifications.create("removed-failure-notif", {
-        type: "basic",
-        //iconUrl: browser.runtime.getURL("assets/images/icon128.png"),
-        title: "Tab Un-duplicator",
-        message: `No tabs to remove.`
+    let notif = await browser.notifications.create({
+        "type": "basic",
+        "iconUrl": browser.runtime.getURL("assets/images/icon128.png"),
+        "title": "Tab Un-duplicator",
+        "message": `No tabs to remove.`,
     })
 }
 
@@ -52,11 +54,10 @@ browser.browserAction.onClicked.addListener(async (event) => {
 
     if(removeTabIds.length === 0) {
         handleNoTabs(removeTabIds)
-        notify("hello");
     } else {
         // display alert of how many removed
         let removed = browser.tabs.remove(removeTabIds);
-        removed.then(handleSuccess(removeTabIds), handleFailure(removeTabIds))
+        removed.then((value) => {handleSuccess(removeTabIds)}, (value) => {handleFailure(removeTabIds)})
     }
 
 })

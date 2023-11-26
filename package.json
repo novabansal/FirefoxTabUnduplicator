@@ -5,7 +5,8 @@
   "main": "assets/js/undupe.js",
   "scripts": {
     "start:firefox": "web-ext run --source-dir ./",
-    "build": "web-ext build --overwrite-dest --source-dir ./"
+    "build": "web-ext build --overwrite-dest --source-dir ./",
+    "sign": "echo Enter API User: && read apiUser && echo Enter API Secret: && read apiSecret && web-ext sign --source-dir ./ --amo-base-url https://addons.mozilla.org/api/v5/ --api-url-prefix https://addons.mozilla.org/api/v4 --api-key $apiUser --api-secret $apiSecret"
   },
   "author": "Navya Bansal",
   "license": "GPL-3.0",
