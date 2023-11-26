@@ -1,10 +1,12 @@
+// TODO function to parse tab urls to display which ones were removed. restore function using storage.
+
 function handleSuccess(removeTabIds) {
     console.log("success")
     /*let notif = */browser.notifications.create({
         "type": "basic",
         "iconUrl": browser.runtime.getURL("assets/images/icon128.png"),
         "title": "Tab Un-duplicator",
-        "message": `${removeTabIds.length} tab${removeTabIds.length > 1 ? "s" : ""} removed.\nRemoved tab ids ${removeTabIds}.`,
+        "message": `${removeTabIds.length} tab${removeTabIds.length > 1 ? "s" : ""} removed.\nRemoved tab${removeTabIds.length > 1 ? "s" : ""} ${removeTabIds.map(element => element.url)}.`,
     })
 }
 
@@ -37,24 +39,25 @@ browser.browserAction.onClicked.addListener(async (event) => {
     console.log({tabs})
 
     var encounteredTabUrls = []
-    var removeTabIds = []
+    var removeTabs = []
 
     for(const tab of tabs) {
         if(encounteredTabUrls.includes(tab.url)) {
-            removeTabIds.push(tab.id)
+            removeTabs.push(tab)
         } else {
             encounteredTabUrls.push(tab.url)
         }
     }
 
     console.log(encounteredTabUrls)
-    console.log(removeTabIds)
+    console.log(removeTabs)
 
-    if(removeTabIds.length === 0) {
-        handleNoTabs(removeTabIds)
+    if(removeTabs.length === 0) {
+        handleNoTabs(removeTabs)
     } else {
         // display alert of how many removed
-        let removed = await browser.tabs.remove(removeTabIds).then((onResolved) => {handleSuccess(removeTabIds)}, (onRejected) => {handleFailure(removeTabIds)})
+        let removeIds = removeTabs.map(element => element.id);
+        let removed = await browser.tabs.remove(removeIds).then((onResolved) => {handleSuccess(removeTabs)}, (onRejected) => {handleFailure(removeTabs)})
     }
 
 })
