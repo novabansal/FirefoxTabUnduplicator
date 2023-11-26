@@ -1,18 +1,16 @@
-console.log(browser.runtime.getURL("assets/images/icon128.png"));
-
-async function handleSuccess(removeTabIds) {
+function handleSuccess(removeTabIds) {
     console.log("success")
-    let notif = await browser.notifications.create({
+    /*let notif = */browser.notifications.create({
         "type": "basic",
         "iconUrl": browser.runtime.getURL("assets/images/icon128.png"),
         "title": "Tab Un-duplicator",
-        "message": `${removeTabIds.length} tab${removeTabIds.length > 1 ? "s" : ""} removed.`,
+        "message": `${removeTabIds.length} tab${removeTabIds.length > 1 ? "s" : ""} removed.\nRemoved tab ids ${removeTabIds}.`,
     })
 }
 
-async function handleFailure(removeTabIds) {
+function handleFailure(removeTabIds) {
     console.log("failure")
-    let notif = await browser.notifications.create({
+    /*let notif = */browser.notifications.create({
         "type": "basic",
         "iconUrl": browser.runtime.getURL("assets/images/icon128.png"),
         "title": "Tab Un-duplicator",
@@ -22,7 +20,7 @@ async function handleFailure(removeTabIds) {
 
 async function handleNoTabs(removeTabIds) {
     console.log("no tabs")
-    let notif = await browser.notifications.create({
+    /*let notif = */browser.notifications.create({
         "type": "basic",
         "iconUrl": browser.runtime.getURL("assets/images/icon128.png"),
         "title": "Tab Un-duplicator",
@@ -56,8 +54,7 @@ browser.browserAction.onClicked.addListener(async (event) => {
         handleNoTabs(removeTabIds)
     } else {
         // display alert of how many removed
-        let removed = browser.tabs.remove(removeTabIds);
-        removed.then((value) => {handleSuccess(removeTabIds)}, (value) => {handleFailure(removeTabIds)})
+        let removed = await browser.tabs.remove(removeTabIds).then((onResolved) => {handleSuccess(removeTabIds)}, (onRejected) => {handleFailure(removeTabIds)})
     }
 
 })
